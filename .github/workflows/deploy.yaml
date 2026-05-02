@@ -11,26 +11,33 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
-      - uses: actions/checkout@v4
+      # 1. Checkout your source code
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      # 2. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: '20'
+          cache: 'npm'
 
+      # 3. Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build Angular app
-        run: npm run build -- --configuration production --base-href="/portfolio/"
+      # 4. Build the Angular app
+      - name: Build
+        run: npm run build -- --base-href "https://frieden07.github.io/portfolio/"
 
+      # 5. Deploy dist/ to gh-pages branch
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
+          folder: dist/shivanshu-portfolio/browser
           branch: gh-pages
-          folder: dist/shivanshu-portfolio
+          clean: true
