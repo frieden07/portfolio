@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,361 +7,555 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <section id="hero" class="hero">
-      <!-- Ambient glow -->
-      <div class="glow glow-1"></div>
-      <div class="glow glow-2"></div>
 
-      <!-- Vertical rule left -->
-      <div class="v-rule"></div>
+      <div class="hero-bg">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="grid-overlay"></div>
+      </div>
 
-      <div class="container hero-grid">
+      <div class="hero-body">
+        <div class="container">
+          <div class="hero-layout">
 
-        <!-- LEFT column -->
-        <div class="hero-left">
-          <div class="eyebrow animate-0">
-            <span class="status-ring"></span>
-            <span class="mono muted">Senior Technical Analyst · Deutsche Bank</span>
-          </div>
+            <!-- LEFT -->
+            <div class="hero-left">
 
-          <h1 class="hero-h1 animate-1">
-            <span class="line-muted">Software</span>
-            <span class="line-main">Engineer<span class="caret"></span></span>
-          </h1>
-
-          <p class="hero-copy animate-2">
-            I design and build distributed systems that operate at scale —
-            turning complex stakeholder requirements into measurable performance gains.
-            Based in <em>Pune, India</em>.
-          </p>
-
-          <div class="hero-actions animate-3">
-            <a href="#contact" class="btn btn--solid">Start a conversation</a>
-            <a href="#experience" class="btn btn--ghost">
-              View my work
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- RIGHT column — stat panel -->
-        <aside class="hero-panel animate-4">
-          <div class="panel-header">
-            <span class="mono muted" style="font-size:0.65rem;letter-spacing:0.15em;">PERFORMANCE SNAPSHOT</span>
-          </div>
-          @for (s of stats; track s.label) {
-            <div class="stat-row">
-              <div class="stat-bar-track">
-                <div class="stat-bar" [style.width]="s.pct"></div>
+              <div class="eyebrow">
+                <span class="status-ring"><span class="status-core"></span></span>
+                <span class="eyebrow-text">Senior Technical Analyst &middot; Deutsche Bank Group</span>
               </div>
-              <div class="stat-info">
-                <span class="stat-num">{{ s.val }}</span>
-                <span class="stat-label mono muted">{{ s.label }}</span>
+
+              <h1 class="hero-h1">
+                <span class="h1-dim">Backend</span>
+                <span class="h1-bright">Engineer<span class="caret"></span></span>
+              </h1>
+
+              <p class="hero-copy">
+                I design and build distributed systems that operate at scale —
+                turning complex stakeholder requirements into
+                <span class="amber-text">measurable performance gains</span>.
+                Based in Pune, India.
+              </p>
+
+              <div class="hero-actions">
+                <a href="#contact" class="btn-solid">
+                  Let's connect
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                    stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 7h10M8 3l4 4-4 4"/>
+                  </svg>
+                </a>
+                <a href="#experience" class="btn-ghost">View my work</a>
+              </div>
+
+              <div class="hero-metrics">
+                @for (m of metrics; track m.label) {
+                  <div class="metric-item">
+                    <span class="metric-val">{{ m.val }}</span>
+                    <span class="metric-label">{{ m.label }}</span>
+                  </div>
+                }
               </div>
             </div>
-          }
-          <div class="panel-footer">
-            <span class="pill pill--amber">Open to Roles</span>
-            <span class="pill pill--ivory">Backend · Distributed Systems</span>
+
+            <!-- RIGHT: Stats panel -->
+            <aside class="hero-panel">
+              <div class="panel-top">
+                <span class="panel-tag">Performance Snapshot</span>
+              </div>
+              <div class="panel-stats">
+                @for (s of stats; track s.label) {
+                  <div class="pstat">
+                    <div class="pstat-head">
+                      <span class="pstat-val">{{ s.val }}</span>
+                      <span class="pstat-pct">{{ s.pct }}</span>
+                    </div>
+                    <div class="pstat-track">
+                      <div class="pstat-fill" [style.width]="s.pct"></div>
+                    </div>
+                    <span class="pstat-label">{{ s.label }}</span>
+                  </div>
+                }
+              </div>
+              <div class="panel-bottom">
+                <div class="avail-badge">
+                  <span class="avail-dot"></span>Open to Roles
+                </div>
+                <div class="stack-line">Backend &middot; Distributed Systems &middot; Fintech</div>
+              </div>
+            </aside>
+
           </div>
-        </aside>
+        </div>
       </div>
 
-      <!-- Bottom bar -->
-      <div class="hero-bottom">
-        <div class="container hero-bottom-inner">
+      <!-- Tech strip -->
+      <div class="tech-strip">
+        <div class="container tech-inner">
           @for (t of techItems; track t) {
-            <span class="tech-item mono muted">{{ t }}</span>
+            <span class="tech-chip">{{ t }}</span>
           }
         </div>
       </div>
 
-      <!-- Scroll cue -->
+      <!-- Scroll indicator -->
       <div class="scroll-cue">
-        <div class="scroll-track"><div class="scroll-thumb"></div></div>
-        <span class="mono muted" style="font-size:0.6rem;letter-spacing:0.18em;">SCROLL</span>
+        <div class="scroll-bar"><div class="scroll-fill"></div></div>
+        <span class="scroll-label">scroll</span>
       </div>
+
     </section>
   `,
   styles: [`
+    /* ─── Section ─── */
     .hero {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: calc(var(--nav-h) + 4rem) 0 8rem;
-      overflow: hidden;
+      background: #0d0d0d;          /* explicit — never inherits */
+      color: #f2ede6;               /* explicit — never inherits */
       position: relative;
+      overflow: hidden;
     }
 
-    /* Glows */
+    /* ─── Background layer (z-index -1 so it never covers content) ─── */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     .glow {
       position: absolute;
       border-radius: 50%;
-      filter: blur(120px);
-      pointer-events: none;
+      filter: blur(130px);
     }
     .glow-1 {
-      width: 500px; height: 400px;
-      background: rgba(232,160,32,0.06);
-      top: 10%; left: -10%;
-      animation: driftA 18s ease-in-out infinite alternate;
+      width: 700px; height: 500px;
+      background: rgba(232,160,32,0.10);
+      top: -80px; left: -200px;
+      animation: driftA 20s ease-in-out infinite alternate;
     }
     .glow-2 {
-      width: 400px; height: 400px;
-      background: rgba(232,160,32,0.04);
-      bottom: 10%; right: 5%;
-      animation: driftB 22s ease-in-out infinite alternate;
+      width: 500px; height: 500px;
+      background: rgba(232,160,32,0.06);
+      bottom: 0; right: -100px;
+      animation: driftB 25s ease-in-out infinite alternate;
     }
-    @keyframes driftA { to { transform: translate(40px, 30px); } }
-    @keyframes driftB { to { transform: translate(-30px, -40px); } }
+    @keyframes driftA { to { transform: translate(60px,40px); } }
+    @keyframes driftB { to { transform: translate(-40px,-60px); } }
 
-    /* Vertical rule */
-    .v-rule {
+    .grid-overlay {
       position: absolute;
-      left: calc((100vw - 1120px) / 2 - 1px);
-      top: 0; bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, transparent, var(--rule) 20%, var(--rule) 80%, transparent);
-      pointer-events: none;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 30%, transparent 80%);
     }
 
-    /* Grid */
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 4rem;
-      align-items: center;
-      flex: 1;
+    /* ─── Content (always above bg) ─── */
+    .hero-body {
       position: relative;
-      z-index: 2;
-    }
-
-    /* Left */
-    .hero-left { padding: 2rem 0; }
-
-    .eyebrow {
+      z-index: 1;                   /* above .hero-bg */
+      flex: 1;
       display: flex;
       align-items: center;
-      gap: 0.7rem;
+      padding-top: calc(72px + 3rem);
+      padding-bottom: 4rem;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    /* ─── Left ─── */
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
       margin-bottom: 2rem;
     }
+
     .status-ring {
-      width: 10px; height: 10px;
+      width: 12px; height: 12px;
       border-radius: 50%;
-      border: 1.5px solid var(--amber);
-      position: relative;
+      border: 1.5px solid #e8a020;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
-
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 2px;
-        border-radius: 50%;
-        background: var(--amber);
-        animation: pulse-dot 2.5s ease-in-out infinite;
-      }
+      animation: ringPulse 3s ease-in-out infinite;
     }
-    @keyframes pulse-dot {
-      0%,100% { transform: scale(1); opacity: 1; }
-      50%      { transform: scale(0.6); opacity: 0.5; }
+    @keyframes ringPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(232,160,32,0.5); }
+      50%      { box-shadow: 0 0 0 6px rgba(232,160,32,0); }
     }
 
+    .status-core {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #e8a020;
+    }
+
+    .eyebrow-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: #a89e92;               /* explicit warm grey */
+    }
+
+    /* Headline */
     .hero-h1 {
-      font-family: var(--ff-display);
+      font-family: 'Cormorant Garamond', Georgia, serif;
       font-weight: 300;
-      line-height: 0.95;
+      line-height: 0.92;
       margin-bottom: 2rem;
       display: flex;
       flex-direction: column;
     }
 
-    .line-muted {
-      font-size: clamp(3.5rem, 7vw, 6.5rem);
-      color: var(--ivory-faint);
+    .h1-dim {
+      font-size: clamp(3rem, 7vw, 6rem);
+      color: rgba(242,237,230,0.4);  /* explicitly semi-transparent ivory */
       letter-spacing: -0.02em;
       font-style: italic;
     }
 
-    .line-main {
-      font-size: clamp(4rem, 9vw, 8.5rem);
-      color: var(--ivory);
+    .h1-bright {
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      color: #f2ede6;                /* explicit ivory */
       letter-spacing: -0.03em;
     }
 
     .caret {
       display: inline-block;
       width: 3px;
-      height: 0.75em;
-      background: var(--amber);
-      margin-left: 6px;
+      height: 0.72em;
+      background: #e8a020;
+      margin-left: 5px;
       vertical-align: baseline;
-      animation: blink 1.1s step-end infinite;
+      animation: caretBlink 1.1s step-end infinite;
     }
+    @keyframes caretBlink { 0%,100%{opacity:1} 50%{opacity:0} }
 
+    /* Body copy */
     .hero-copy {
       font-size: 1.05rem;
-      color: var(--ivory-dim);
-      max-width: 480px;
-      line-height: 1.75;
+      color: #8a8078;               /* explicit mid-grey */
+      max-width: 500px;
+      line-height: 1.8;
       margin-bottom: 2.5rem;
       font-weight: 300;
-
-      em { font-style: normal; color: var(--ivory); }
     }
 
+    .amber-text { color: #e8a020; }
+
+    /* Buttons */
     .hero-actions {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1.25rem;
+      margin-bottom: 3.5rem;
       flex-wrap: wrap;
     }
 
-    /* Panel (right) */
+    .btn-solid {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #e8a020;
+      color: #0d0d0d;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.8rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+
+      &:hover {
+        background: #f2ede6;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(232,160,32,0.25);
+      }
+    }
+
+    .btn-ghost {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #a89e92;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(232,160,32,0.35);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+
+      &:hover { color: #e8a020; border-color: #e8a020; }
+    }
+
+    /* Metrics */
+    .hero-metrics {
+      display: flex;
+      gap: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      flex-wrap: wrap;
+    }
+
+    .metric-item { display: flex; flex-direction: column; gap: 0.2rem; }
+
+    .metric-val {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: #e8a020;
+      line-height: 1;
+    }
+
+    .metric-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5a5450;
+    }
+
+    /* ─── Right panel ─── */
     .hero-panel {
-      background: var(--ink-2);
-      border: 1px solid var(--rule);
-      border-radius: 4px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
       padding: 1.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
     }
 
-    .panel-header {
+    .panel-top {
+      margin-bottom: 1.5rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    .stat-row {
+    .panel-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #5a5450;
+    }
+
+    .panel-stats {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 1.4rem;
+      margin-bottom: 1.5rem;
     }
 
-    .stat-bar-track {
+    .pstat-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+
+    .pstat-val {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: #f2ede6;
+    }
+
+    .pstat-pct {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: #e8a020;
+      letter-spacing: 0.06em;
+    }
+
+    .pstat-track {
       height: 2px;
       background: rgba(255,255,255,0.06);
       border-radius: 1px;
       overflow: hidden;
+      margin-bottom: 0.4rem;
     }
 
-    .stat-bar {
+    .pstat-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--amber), rgba(232,160,32,0.4));
+      background: linear-gradient(90deg, #e8a020 0%, rgba(232,160,32,0.3) 100%);
       border-radius: 1px;
-      animation: growBar 1.2s var(--ease-out-expo) both;
+      animation: barGrow 1.4s cubic-bezier(0.16,1,0.3,1) 0.8s both;
+    }
+    @keyframes barGrow { from { width: 0 !important; } }
+
+    .pstat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      color: #5a5450;
     }
 
-    @keyframes growBar {
-      from { width: 0 !important; }
-    }
-
-    .stat-info {
+    .panel-bottom {
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
+      flex-direction: column;
+      gap: 0.6rem;
     }
 
-    .stat-num {
-      font-family: var(--ff-display);
-      font-size: 1.4rem;
-      font-weight: 400;
-      color: var(--ivory);
-    }
-
-    .stat-label { font-size: 0.65rem; }
-
-    .panel-footer {
-      display: flex;
-      flex-wrap: wrap;
+    .avail-badge {
+      display: inline-flex;
+      align-items: center;
       gap: 0.5rem;
-      padding-top: 0.5rem;
-      border-top: 1px solid var(--rule);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: #e8a020;
+      background: rgba(232,160,32,0.1);
+      border: 1px solid rgba(232,160,32,0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      width: fit-content;
     }
 
-    /* Bottom tech bar */
-    .hero-bottom {
-      border-top: 1px solid var(--rule);
-      margin-top: 4rem;
-      padding: 1.25rem 0;
+    .avail-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #e8a020;
+      animation: caretBlink 1.8s step-end infinite;
     }
-    .hero-bottom-inner {
+
+    .stack-line {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      color: #4a4440;
+    }
+
+    /* ─── Tech strip ─── */
+    .tech-strip {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 1rem 0;
+    }
+
+    .tech-inner {
       display: flex;
       align-items: center;
-      gap: 2.5rem;
       flex-wrap: wrap;
+      gap: 0;
     }
-    .tech-item {
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
+
+    .tech-chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      opacity: 0.5;
-      transition: opacity 0.2s;
+      color: #4a4440;
+      padding: 0 1.5rem;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      white-space: nowrap;
+      cursor: default;
+      transition: color 0.2s;
 
-      &:hover { opacity: 1; color: var(--amber); }
+      &:first-child { padding-left: 0; }
+      &:last-child  { border-right: none; }
+      &:hover       { color: #e8a020; }
     }
 
-    /* Scroll cue */
+    /* ─── Scroll cue ─── */
     .scroll-cue {
       position: absolute;
-      right: 2.5rem;
-      bottom: 3rem;
+      bottom: 2.5rem; right: 2.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
+      z-index: 1;
     }
-    .scroll-track {
-      width: 1px; height: 60px;
-      background: var(--rule);
-      position: relative;
+
+    .scroll-bar {
+      width: 1px; height: 56px;
+      background: rgba(255,255,255,0.08);
       overflow: hidden;
     }
-    .scroll-thumb {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 40%;
-      background: var(--amber);
-      animation: scrollDown 2s ease-in-out infinite;
+
+    .scroll-fill {
+      width: 100%; height: 50%;
+      background: #e8a020;
+      animation: scrollDrop 2.2s ease-in-out infinite;
     }
-    @keyframes scrollDown {
-      0%   { top: -40%; }
-      100% { top: 140%; }
+    @keyframes scrollDrop {
+      0%   { transform: translateY(-200%); }
+      100% { transform: translateY(300%); }
     }
 
-    /* Entrance animations */
-    .animate-0 { animation: fadeUp 0.6s 0.1s var(--ease-out-expo) both; }
-    .animate-1 { animation: fadeUp 0.8s 0.2s var(--ease-out-expo) both; }
-    .animate-2 { animation: fadeUp 0.7s 0.35s var(--ease-out-expo) both; }
-    .animate-3 { animation: fadeUp 0.7s 0.45s var(--ease-out-expo) both; }
-    .animate-4 { animation: fadeUp 0.8s 0.55s var(--ease-out-expo) both; }
+    .scroll-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #5a5450;
+      writing-mode: vertical-rl;
+    }
 
+    /* ─── Entrance animations ─── */
+    .eyebrow   { animation: fadeUp 0.6s 0.05s cubic-bezier(0.16,1,0.3,1) both; }
+    .hero-h1   { animation: fadeUp 0.8s 0.15s cubic-bezier(0.16,1,0.3,1) both; }
+    .hero-copy { animation: fadeUp 0.7s 0.28s cubic-bezier(0.16,1,0.3,1) both; }
+    .hero-actions  { animation: fadeUp 0.7s 0.38s cubic-bezier(0.16,1,0.3,1) both; }
+    .hero-metrics  { animation: fadeUp 0.7s 0.48s cubic-bezier(0.16,1,0.3,1) both; }
+    .hero-panel    { animation: fadeUp 0.8s 0.55s cubic-bezier(0.16,1,0.3,1) both; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Responsive ─── */
     @media (max-width: 960px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .hero-panel { display: none; }
-      .v-rule { display: none; }
+      .hero-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-panel  { display: none; }
     }
 
-    @media (max-width: 480px) {
-      .hero { padding-top: calc(var(--nav-h) + 2rem); padding-bottom: 5rem; }
-      .hero-actions { flex-direction: column; align-items: flex-start; }
+    @media (max-width: 640px) {
+      .hero-body { padding-bottom: 5rem; }
+      .hero-metrics { gap: 1.5rem; }
+      .metric-val { font-size: 1.5rem; }
       .scroll-cue { display: none; }
+      .tech-chip  { border: none; padding: 0.25rem 0.5rem; }
     }
   `]
 })
 export class HeroComponent {
+  metrics = [
+    { val: '80%',    label: 'API latency cut'      },
+    { val: '1,200+', label: 'Counterparties served' },
+    { val: '9.34',   label: 'Cumulative GPA'        },
+  ];
+
   stats = [
-    { val: '80%',    label: 'API latency reduction',   pct: '80%'  },
-    { val: '1,200+', label: 'Counterparties unblocked', pct: '72%'  },
-    { val: '9.34',   label: 'Cumulative GPA / 10',      pct: '93%'  },
-    { val: '45%',    label: 'Doc retrieval speed-up',   pct: '45%'  },
+    { val: '80% improvement',  pct: '80%', label: 'API response time (850ms → 170ms)' },
+    { val: '1,200+ entities',  pct: '72%', label: 'Counterparties via re-platforming'  },
+    { val: '45% faster',       pct: '45%', label: 'Document retrieval latency'          },
+    { val: '75% queue cut',    pct: '75%', label: 'ETL job wait (12 min → 3 min)'       },
   ];
 
   techItems = [
     'Java', 'Spring Boot', 'GraphQL', 'Python', 'Django',
-    'Elasticsearch', 'AWS', 'Docker', 'Apache NiFi', 'Ray',
+    'AWS S3', 'Elasticsearch', 'Apache NiFi', 'Docker', 'Ray',
   ];
 }

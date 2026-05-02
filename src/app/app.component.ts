@@ -32,15 +32,27 @@ import { FooterComponent }     from './components/footer/footer.component';
 })
 export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          io.unobserve(e.target);
-        }
-      }),
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    const revealAll = () => {
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        }),
+        
+        { threshold: 0, rootMargin: '200px 0px 0px 0px' }
+      );
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+      setTimeout(() => {
+        document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+          el.classList.add('visible');
+        });
+      }, 800);
+    };
+
+    // Small delay to ensure Angular has finished rendering all child components
+    setTimeout(revealAll, 50);
   }
 }

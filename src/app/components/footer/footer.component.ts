@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
         <div class="foot-left">
           <a class="foot-wordmark" href="#hero">
             <span class="fw-name">Shivanshu Tiwari</span>
-            <span class="fw-role mono muted">Backend Engineer · Pune, India</span>
+            <span class="fw-role mono muted">Software Engineer · Pune, India</span>
           </a>
         </div>
 
