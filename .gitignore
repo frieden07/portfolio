@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.angular/
+
+# Environment & secrets
+.env
+.env.*
+src/environments/environment.development.ts
+
+# IDE & editor
+.vscode/
+.idea/
