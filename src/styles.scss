@@ -35,16 +35,25 @@
 /* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+app-root {
+  display: block;
+  min-height: 100vh;
+  background: var(--ink);
+}
+
+app-navbar {
+  display: block;
+  height: 0;
+}
+
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--amber) var(--ink-2);
+  scrollbar-width: none;
+  scrollbar-color: #3a3530 var(--ink-2);
 }
 
-::-webkit-scrollbar       { width: 3px; }
-::-webkit-scrollbar-track { background: var(--ink-2); }
-::-webkit-scrollbar-thumb { background: #3a3530; border-radius: 2px; }
+::-webkit-scrollbar       { display: none; }
 
 body {
   background: var(--ink);

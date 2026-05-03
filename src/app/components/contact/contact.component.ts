@@ -22,7 +22,7 @@ import { CommonModule } from '@angular/common';
             </h2>
             <p class="contact-intro">
               Open to Software engineering roles, distributed systems consulting,
-              and meaningful technical collaborations. I respond within 24 hours.
+              and meaningful technical collaborations.
             </p>
           </div>
         </div>
@@ -42,7 +42,6 @@ import { CommonModule } from '@angular/common';
           <div class="big-email-rule"></div>
         </div>
 
-        <!-- Channel cards — SVGs inlined directly, no [innerHTML] -->
         <div class="channels reveal">
 
           <a href="mailto:tiwarishivanshu535@gmail.com" class="channel-card">
@@ -117,7 +116,7 @@ import { CommonModule } from '@angular/common';
             </div>
           </a>
 
-          <a href="https://linkedin.com/in/shivanshu-tiwari" target="_blank" class="channel-card">
+          <a href="https://www.linkedin.com/in/shivanshu-tiwari-61b018207/" target="_blank" class="channel-card">
             <div class="ch-icon-wrap">
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852
@@ -132,7 +131,7 @@ import { CommonModule } from '@angular/common';
             </div>
             <div class="ch-body">
               <span class="ch-platform">LinkedIn</span>
-              <span class="ch-value">linkedin.com/in/shivanshu-tiwari</span>
+              <span class="ch-value">linkedin.com/in/shivanshu-tiwari-61b018207</span>
             </div>
             <div class="ch-arrow">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"

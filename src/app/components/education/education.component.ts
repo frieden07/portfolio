@@ -41,12 +41,29 @@ import { CommonModule } from '@angular/common';
               <div class="pub-eyebrow">
                 <span class="pub-badge mono">IEEE Publication · 2024</span>
               </div>
-              <blockquote class="pub-title">
-                "Real Time Network Monitoring and Reporting Using Network Intrusion Detection System"
-              </blockquote>
+
+              <a
+                href="https://ieeexplore.ieee.org/document/10543613"
+                target="_blank"
+                class="pub-title-link"
+              >
+                <blockquote class="pub-title">
+                  "Real Time Network Monitoring and Reporting Using Network Intrusion Detection System"
+                </blockquote>
+                <span class="pub-link-hint">
+                  View on IEEE Xplore
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                    stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 6h8M6 2l4 4-4 4"/>
+                  </svg>
+                </span>
+              </a>
+
               <p class="pub-venue mono muted">
                 9th International Conference for Convergence in Technology, Pune, India
               </p>
+
               <div class="pub-tags">
                 @for (t of pubTags; track t) {
                   <span class="pill pill--ivory">{{ t }}</span>
@@ -96,7 +113,6 @@ import { CommonModule } from '@angular/common';
       border-bottom: 1px solid var(--rule);
 
       &:first-child { border-top: 1px solid var(--rule); }
-
       &:hover { background: rgba(255,255,255,0.01); }
     }
 
@@ -140,6 +156,7 @@ import { CommonModule } from '@angular/common';
       padding: 2.25rem;
       position: relative;
       overflow: hidden;
+      transition: border-color 0.25s;
 
       &::before {
         content: '';
@@ -148,6 +165,8 @@ import { CommonModule } from '@angular/common';
         width: 2px;
         background: var(--amber);
       }
+
+      &:hover { border-color: rgba(232,160,32,0.3); }
     }
 
     .pub-eyebrow { margin-bottom: 1.25rem; }
@@ -163,6 +182,19 @@ import { CommonModule } from '@angular/common';
       border-radius: 2px;
     }
 
+    /* Clickable title link */
+    .pub-title-link {
+      display: block;
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+      group: true;
+
+      &:hover {
+        .pub-title { color: var(--amber); }
+        .pub-link-hint { opacity: 1; gap: 0.5rem; }
+      }
+    }
+
     .pub-title {
       font-family: var(--ff-display);
       font-size: 1.25rem;
@@ -170,9 +202,23 @@ import { CommonModule } from '@angular/common';
       font-style: italic;
       color: var(--ivory);
       line-height: 1.45;
-      margin-bottom: 0.75rem;
       border: none;
       padding: 0;
+      margin-bottom: 0.5rem;
+      transition: color 0.25s;
+    }
+
+    .pub-link-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      opacity: 0.6;
+      transition: opacity 0.25s, gap 0.25s;
     }
 
     .pub-venue {
@@ -191,7 +237,12 @@ import { CommonModule } from '@angular/common';
     @media (max-width: 560px) {
       .edu-section { padding: 5rem 0; }
       .degree-row { grid-template-columns: 1fr; gap: 0.5rem; }
-      .degree-score { align-items: flex-start; flex-direction: row; align-items: baseline; gap: 0.75rem; }
+      .degree-score {
+        align-items: flex-start;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 0.75rem;
+      }
     }
   `]
 })
@@ -199,19 +250,27 @@ export class EducationComponent {
   degrees = [
     {
       year: '2024',
-      degree: "Bachelor of Engineering",
-      school: "Army Institute of Technology",
-      location: "Pune",
-      score: "9.34",
-      scoreNote: "GPA / 10",
+      degree: 'Bachelor of Engineering',
+      school: 'Army Institute of Technology',
+      location: 'Pune',
+      score: '9.34',
+      scoreNote: 'GPA / 10',
     },
     {
       year: '2019',
-      degree: "Intermediate (Class XII)",
-      school: "Kendriya Vidyalaya 1 STC",
-      location: "Jabalpur",
-      score: "91.4%",
-      scoreNote: "Board score",
+      degree: 'Intermediate (Class XII)',
+      school: 'Kendriya Vidyalaya 1 STC',
+      location: 'Jabalpur',
+      score: '91.4%',
+      scoreNote: 'Board score',
+    },
+    {
+      year: '2017',
+      degree: 'Matriculate (Class X)',
+      school: 'Kendriya Vidyalaya 1 STC',
+      location: 'Jabalpur',
+      score: '10',
+      scoreNote: 'CGPA / 10',
     },
   ];
 

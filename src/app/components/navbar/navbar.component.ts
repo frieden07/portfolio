@@ -8,30 +8,25 @@ import { CommonModule } from '@angular/common';
   template: `
     <header [class.scrolled]="scrolled()">
       <div class="nav-wrap">
-        <!-- Wordmark -->
         <a class="wordmark" href="#hero">
           <span class="wm-first">Shivanshu</span>
           <span class="wm-dot"></span>
           <span class="wm-last">Tiwari</span>
         </a>
 
-        <!-- Desktop links -->
         <nav class="nav-links">
           @for (l of links; track l.id) {
             <a [href]="'#' + l.id" class="nav-link">{{ l.label }}</a>
           }
         </nav>
 
-        <!-- CTA -->
         <a href="#contact" class="nav-cta">Available for work</a>
 
-        <!-- Mobile toggle -->
         <button class="burger" (click)="open.set(!open())" [class.is-open]="open()" aria-label="menu">
           <span></span><span></span>
         </button>
       </div>
 
-      <!-- Mobile drawer -->
       <div class="mobile-drawer" [class.is-open]="open()">
         @for (l of links; track l.id) {
           <a [href]="'#' + l.id" (click)="open.set(false)" class="drawer-link">
@@ -43,19 +38,27 @@ import { CommonModule } from '@angular/common';
     </header>
   `,
   styles: [`
+    /* Host itself must take zero layout space */
+    :host {
+      display: block;
+      height: 0;
+      overflow: visible;
+    }
+
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
-      height: var(--nav-h);
+      height: 72px;
+      background: transparent;
       transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s;
       border-bottom: 1px solid transparent;
 
       &.scrolled {
-        background: rgba(13,13,13,0.92);
+        background: rgba(13,13,13,0.95);
         backdrop-filter: blur(18px);
         -webkit-backdrop-filter: blur(18px);
-        border-color: var(--rule);
+        border-color: rgba(255,255,255,0.08);
       }
     }
 
@@ -69,7 +72,6 @@ import { CommonModule } from '@angular/common';
       gap: 2rem;
     }
 
-    /* Wordmark */
     .wordmark {
       display: flex;
       align-items: center;
@@ -79,25 +81,24 @@ import { CommonModule } from '@angular/common';
     }
 
     .wm-first, .wm-last {
-      font-family: var(--ff-display);
+      font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 1.1rem;
       font-weight: 400;
-      color: var(--ivory);
+      color: #f2ede6;
       letter-spacing: 0.02em;
       transition: color 0.2s;
     }
 
     .wordmark:hover .wm-first,
-    .wordmark:hover .wm-last { color: var(--amber); }
+    .wordmark:hover .wm-last { color: #e8a020; }
 
     .wm-dot {
       width: 4px; height: 4px;
-      background: var(--amber);
+      background: #e8a020;
       border-radius: 50%;
       flex-shrink: 0;
     }
 
-    /* Nav links */
     .nav-links {
       display: flex;
       align-items: center;
@@ -106,11 +107,11 @@ import { CommonModule } from '@angular/common';
     }
 
     .nav-link {
-      font-family: var(--ff-mono);
+      font-family: 'DM Mono', monospace;
       font-size: 0.72rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--ivory-faint);
+      color: #5a5450;
       text-decoration: none;
       transition: color 0.2s;
       position: relative;
@@ -120,26 +121,25 @@ import { CommonModule } from '@angular/common';
         position: absolute;
         bottom: -3px; left: 0; right: 0;
         height: 1px;
-        background: var(--amber);
+        background: #e8a020;
         transform: scaleX(0);
         transform-origin: left;
-        transition: transform 0.25s var(--ease-out-expo);
+        transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
       }
 
       &:hover {
-        color: var(--ivory);
+        color: #f2ede6;
         &::after { transform: scaleX(1); }
       }
     }
 
-    /* CTA pill */
     .nav-cta {
-      font-family: var(--ff-mono);
+      font-family: 'DM Mono', monospace;
       font-size: 0.7rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--amber);
-      border: 1px solid var(--amber-mid);
+      color: #e8a020;
+      border: 1px solid rgba(232,160,32,0.3);
       padding: 0.45rem 1rem;
       border-radius: 2px;
       text-decoration: none;
@@ -155,12 +155,13 @@ import { CommonModule } from '@angular/common';
       }
 
       &:hover {
-        background: var(--amber);
-        color: var(--ink);
+        background: #e8a020;
+        color: #0d0d0d;
       }
     }
 
-    /* Burger */
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
     .burger {
       display: none;
       flex-direction: column;
@@ -175,7 +176,7 @@ import { CommonModule } from '@angular/common';
         display: block;
         width: 22px;
         height: 1px;
-        background: var(--ivory);
+        background: #f2ede6;
         transition: all 0.3s;
       }
 
@@ -185,41 +186,50 @@ import { CommonModule } from '@angular/common';
       }
     }
 
-    /* Mobile drawer */
     .mobile-drawer {
       position: fixed;
-      top: var(--nav-h);
+      top: 72px;
       left: 0; right: 0;
-      background: var(--ink-2);
-      border-bottom: 1px solid var(--rule);
+      background: #181818;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       padding: 2rem 2.5rem;
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
       transform: translateY(-110%);
-      transition: transform 0.4s var(--ease-out-expo);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+                  visibility 0s 0.4s;
+      z-index: 999;
+      visibility: hidden;        /* fully hidden when closed */
+      pointer-events: none;
+    }
 
-      &.is-open { transform: translateY(0); }
+    .mobile-drawer.is-open {
+      transform: translateY(0);
+      visibility: visible;       /* show when open */
+      pointer-events: auto;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+                  visibility 0s 0s;
     }
 
     .drawer-link {
-      font-family: var(--ff-mono);
+      font-family: 'DM Mono', monospace;
       font-size: 0.85rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--ivory-dim);
+      color: #a89e92;
       text-decoration: none;
       transition: color 0.2s;
-      &:hover { color: var(--amber); }
+      &:hover { color: #e8a020; }
     }
 
     .drawer-cta {
-      font-family: var(--ff-mono);
+      font-family: 'DM Mono', monospace;
       font-size: 0.8rem;
-      color: var(--amber);
+      color: #e8a020;
       text-decoration: none;
       padding-top: 1rem;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
 
     @media (max-width: 860px) {

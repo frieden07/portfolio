@@ -28,7 +28,9 @@ import { FooterComponent }     from './components/footer/footer.component';
     </main>
     <app-footer></app-footer>
   `,
-  styles: [`main { position: relative; z-index: 1; }`]
+  styles: [`
+    main { position: relative; z-index: 1; }
+  `]
 })
 export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
